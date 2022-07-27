@@ -1,6 +1,15 @@
 site_name: MkDocs GOV.UK theme
 repo_url: null
 
+tech_docs:
+    show_govuk_logo: false
+    service_link: https://parent-service-uri.example/
+    service_name: Parent Service Name
+    phase: beta
+    collapsible_nav: true
+    header_links:
+        - title: This Site
+          path: /
 theme:
     name: null
     custom_dir: 'govuk_theme'

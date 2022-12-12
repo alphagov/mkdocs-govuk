@@ -1,12 +1,12 @@
 <header class="govuk-header app-header" role="banner" data-module="govuk-header">
   <div class="govuk-header__container govuk-header__container--full-width">
     <div class="govuk-header__logo">
-      {% if config.tech_docs.service_link %}
-      <a href="{{ config.tech_docs.service_link|url }}" class="govuk-header__link govuk-header__link--homepage">
+      {% if config.theme.service_link %}
+      <a href="{{ config.theme.service_link|url }}" class="govuk-header__link govuk-header__link--homepage">
       {% else %}
       <span class="govuk-header__link govuk-header__link--homepage">
       {% endif %}
-        {% if config.tech_docs.show_govuk_logo %}
+        {% if config.theme.show_govuk_logo %}
         <span class="govuk-header__logotype">
           <svg
             aria-hidden="true"
@@ -28,23 +28,23 @@
         </span>
         {% endif %}
         <span class="govuk-header__product-name">
-          {{ config.tech_docs.service_name }}
+          {{ config.theme.service_name }}
         </span>
-      {% if config.tech_docs.service_link %}
+      {% if config.theme.service_link %}
       </a>
       {% else %}
       </span>
       {% endif %}
-      {% if config.tech_docs.phase %}
-        <strong class="govuk-tag">{{ config.tech_docs.phase }}</strong>
+      {% if config.theme.phase %}
+        <strong class="govuk-tag">{{ config.theme.phase }}</strong>
       {% endif %}
     </div>
-    {% if config.tech_docs.header_links or config.repo_url %}
+    {% if config.theme.header_links or config.repo_url %}
       <div class="govuk-header__content">
         <nav class="govuk-header__navigation govuk-header__navigation--end" aria-label="Menu">
           <button type="button" class="govuk-header__menu-button govuk-js-header-toggle" aria-controls="navigation" aria-label="Show or hide menu">Menu</button>
           <ul id="navigation" class="govuk-header__navigation-list">
-            {% for link in config.tech_docs.header_links %}
+            {% for link in config.theme.header_links %}
               <li class="govuk-header__navigation-item{% if link.path == (page.url or '/') %} govuk-header__navigation-item--active{% endif %}">
                 <a class="govuk-header__link" href="{{ link.path|url }}">{{ link.title }}</a>
               </li>

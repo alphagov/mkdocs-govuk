@@ -45,7 +45,7 @@
               </form>
             </div>
             <button type="button" class="toc__close js-toc-close" aria-controls="toc" aria-label="Hide table of contents"></button>
-            <nav id="toc" class="js-toc-list toc__list" aria-labelledby="toc-heading"{{ " data-module=\"collapsible-navigation\"" if config.tech_docs.collapsible_nav }}>
+            <nav id="toc" class="js-toc-list toc__list" aria-labelledby="toc-heading"{{ " data-module=\"collapsible-navigation\"" if config.theme.collapsible_nav }}>
               <ul>
                 {% for nav_item in nav %}
                   {% include "nav.html" %}
@@ -73,7 +73,7 @@
             {% endblock %}
           </main>
         
-          {% if config.tech_docs.show_contribution_banner %}
+          {% if config.theme.show_contribution_banner %}
             <aside>
               <ul class="contribution-banner">
                 {% if page and page.edit_url %}<li><a href="{{ page.edit_url  }}">View source</a></li>{% endif %}

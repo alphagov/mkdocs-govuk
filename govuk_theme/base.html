@@ -35,16 +35,10 @@
         {% include "header.html" %}
       </div>
 
-      <div class="app-pane__body">
+      <div class="govuk-grid-row">
 
-        <div class="app-pane__toc">
+        <div class="govuk-grid-column-one-half">
           <div class="toc" data-module="table-of-contents" tabindex="-1" aria-label="Table of contents" role="dialog">
-            <div role="search">
-              <form action="{{ "search.html"|url }}" method="get">
-                <input type="search" name="q" placeholder="Search docs" />
-              </form>
-            </div>
-            <button type="button" class="toc__close js-toc-close" aria-controls="toc" aria-label="Hide table of contents"></button>
             <nav id="toc" class="js-toc-list toc__list" aria-labelledby="toc-heading"{{ " data-module=\"collapsible-navigation\"" if config.theme.collapsible_nav }}>
               <ul>
                 {% for nav_item in nav %}
@@ -55,51 +49,28 @@
           </div>
         </div>
 
-        <div class="app-pane__content toc-open-disabled">
-          <main id="content" class="technical-documentation" data-module="anchored-headings">
-            <ul>
-              {% for toc_item in page.toc %}
-                <li><a href="{{ toc_item.url }}">{{ toc_item.title }}</a></li>
-                <ul>
-                  {% for toc_item in toc_item.children %}
-                    <li><a href="{{ toc_item.url }}">{{ toc_item.title }}</a></li>
-                  {% endfor %}
-                </ul>
-              {% endfor %}
-            </ul>
-
-            {% block content %}
-              {{ page.content }}
-            {% endblock %}
-          </main>
-        
-          {% if config.theme.show_contribution_banner %}
-            <aside>
-              <ul class="contribution-banner">
-                {% if page and page.edit_url %}<li><a href="{{ page.edit_url  }}">View source</a></li>{% endif %}
-                <li><a href="{{ config.report_issue_url }}">Report problem</a></li>
-                <li><a href="{{ config.repo_url }}">GitHub Repo</a></li>
-              </ul>
-            </aside>
-          {% endif %}
-
-          {% if page.next_page or page.previous_page %}
-            <div>
-              {% if page.previous_page %}
-                <a href="{{ page.previous_page.url|url }}" title="{{ page.previous_page.title }}">&#8592; Previous Page</a>
-              {% else %}
-                &#8592; Previous Page
-              {% endif %}
-              -
-              {% if page.next_page %}
-                <a href="{{ page.next_page.url|url }}" title="{{ page.next_page.title }}"/>Next Page &#8594;</a>
-              {% else %}
-                Next Page &#8594;
-              {% endif %}
-            </div>
-          {% endif %}
+        <div class="govuk-grid-column-one-half">
+          {% block content %}
+            {{ page.content }}
+          {% endblock %}
         </div>
+
       </div>
+      {% if page.next_page or page.previous_page %}
+      <div>
+        {% if page.previous_page %}
+          <a href="{{ page.previous_page.url|url }}" title="{{ page.previous_page.title }}">&#8592; Previous Page</a>
+        {% else %}
+          &#8592; Previous Page
+        {% endif %}
+        -
+        {% if page.next_page %}
+          <a href="{{ page.next_page.url|url }}" title="{{ page.next_page.title }}"/>Next Page &#8594;</a>
+        {% else %}
+          Next Page &#8594;
+        {% endif %}
+      </div>
+    {% endif %}
     </div>
 
     <footer class="govuk-footer " role="contentinfo">

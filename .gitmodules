@@ -1,4 +1,4 @@
 [submodule "tech-docs-assets"]
 	path = tech-docs-assets
 	url = ../tech-docs-assets
-	branch = strip-non-assets
+	branch = main

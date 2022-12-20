@@ -1,0 +1,18 @@
+{
+  "private": true,
+  "name": "mkdocs-govuk",
+  "description": "A theme for MkDocs that uses the Tech Docs Assets for a similar look and feel",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/alphagov/mkdocs-govuk.git"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/alphagov/mkdocs-govuk/issues"
+  },
+  "homepage": "https://github.com/alphagov/mkdocs-govuk#readme",
+  "dependencies": {
+    "tech-docs-assets": "file:tech-docs-assets"
+  },
+  "files": []
+}

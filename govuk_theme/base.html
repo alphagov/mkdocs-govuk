@@ -9,13 +9,12 @@
 
     <link rel="shortcut icon" href="{{ "assets/images/favicon.ico"|url }}">
 
-    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css">
-
     {% for path in config.extra_css %}
       <link href="{{ path|url }}" rel="stylesheet">
     {% endfor %}
-  
-    <link rel="stylesheet" href="{{ "css/govuk-frontend-4.1.0.min.css"|url }}">
+
+    <link rel="stylesheet" href="{{ "css/screen.css"|url }}" media="screen">
+    <link rel="stylesheet" href="{{ "css/print.css"|url }}" media="print">
 
     {% if config.site_url %}
       <link rel="canonical" href="{ config.site_url }}">
@@ -39,16 +38,18 @@
 
         <div class="app-pane__toc">
           <div class="toc" data-module="table-of-contents" tabindex="-1" aria-label="Table of contents" role="dialog">
+            {# note: search removed until we can get it working
             <div role="search">
               <form action="{{ "search.html"|url }}" method="get">
                 <input type="search" name="q" placeholder="Search docs" />
               </form>
             </div>
+            #}
             <button type="button" class="toc__close js-toc-close" aria-controls="toc" aria-label="Hide table of contents"></button>
             <nav id="toc" class="js-toc-list toc__list" aria-labelledby="toc-heading"{{ " data-module=\"collapsible-navigation\"" if config.theme.collapsible_nav }}>
               <ul>
                 {% for nav_item in nav %}
-                  {% include "nav.html" %}
+                  {% include "nav_first_level.html" %}
                 {% endfor %}
               </ul>
             </nav>
@@ -57,6 +58,8 @@
 
         <div class="app-pane__content toc-open-disabled">
           <main id="content" class="technical-documentation" data-module="anchored-headings">
+            {% include "nextprev.html" %}
+
             <ul>
               {% for toc_item in page.toc %}
                 <li><a href="{{ toc_item.url }}">{{ toc_item.title }}</a></li>
@@ -71,8 +74,10 @@
             {% block content %}
               {{ page.content }}
             {% endblock %}
+
+            {% include "nextprev.html" %}
           </main>
-        
+
           {% if config.theme.show_contribution_banner %}
             <aside>
               <ul class="contribution-banner">
@@ -83,54 +88,34 @@
             </aside>
           {% endif %}
 
-          {% if page.next_page or page.previous_page %}
-            <div>
-              {% if page.previous_page %}
-                <a href="{{ page.previous_page.url|url }}" title="{{ page.previous_page.title }}">&#8592; Previous Page</a>
-              {% else %}
-                &#8592; Previous Page
-              {% endif %}
-              -
-              {% if page.next_page %}
-                <a href="{{ page.next_page.url|url }}" title="{{ page.next_page.title }}"/>Next Page &#8594;</a>
-              {% else %}
-                Next Page &#8594;
-              {% endif %}
+          <footer class="govuk-footer " role="contentinfo">
+            <div class="govuk-width-container ">
+              <div class="govuk-footer__meta">
+                <div class="govuk-footer__meta-item govuk-footer__meta-item--grow">
+
+                  <div class="govuk-footer__meta-custom">
+                    Built with <a href="https://www.mkdocs.org">MkDocs</a>.
+                  </div>
+
+                  <svg aria-hidden="true" focusable="false" class="govuk-footer__licence-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 483.2 195.7" height="17" width="41">
+                    <path fill="currentColor" d="M421.5 142.8V.1l-50.7 32.3v161.1h112.4v-50.7zm-122.3-9.6A47.12 47.12 0 0 1 221 97.8c0-26 21.1-47.1 47.1-47.1 16.7 0 31.4 8.7 39.7 21.8l42.7-27.2A97.63 97.63 0 0 0 268.1 0c-36.5 0-68.3 20.1-85.1 49.7A98 98 0 0 0 97.8 0C43.9 0 0 43.9 0 97.8s43.9 97.8 97.8 97.8c36.5 0 68.3-20.1 85.1-49.7a97.76 97.76 0 0 0 149.6 25.4l19.4 22.2h3v-87.8h-80l24.3 27.5zM97.8 145c-26 0-47.1-21.1-47.1-47.1s21.1-47.1 47.1-47.1 47.2 21 47.2 47S123.8 145 97.8 145" />
+                  </svg>
+                  <span class="govuk-footer__licence-description">
+                    All content is available under the
+                    <a class="govuk-footer__link" href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/" rel="license">Open Government Licence v3.0</a>, except where otherwise stated
+                  </span>
+                </div>
+                <div class="govuk-footer__meta-item">
+                  <a class="govuk-footer__link govuk-footer__copyright-logo" href="https://www.nationalarchives.gov.uk/information-management/re-using-public-sector-information/uk-government-licensing-framework/crown-copyright/">© Crown copyright</a>
+                </div>
+              </div>
             </div>
-          {% endif %}
+          </footer>
         </div>
       </div>
     </div>
 
-    <footer class="govuk-footer " role="contentinfo">
-      <div class="govuk-width-container ">
-        <div class="govuk-footer__meta">
-          <div class="govuk-footer__meta-item govuk-footer__meta-item--grow">
-
-            <div class="govuk-footer__meta-custom">
-              Built with <a href="https://www.mkdocs.org">MkDocs</a>.
-            </div>
-    
-            <svg aria-hidden="true" focusable="false" class="govuk-footer__licence-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 483.2 195.7" height="17" width="41">
-              <path fill="currentColor" d="M421.5 142.8V.1l-50.7 32.3v161.1h112.4v-50.7zm-122.3-9.6A47.12 47.12 0 0 1 221 97.8c0-26 21.1-47.1 47.1-47.1 16.7 0 31.4 8.7 39.7 21.8l42.7-27.2A97.63 97.63 0 0 0 268.1 0c-36.5 0-68.3 20.1-85.1 49.7A98 98 0 0 0 97.8 0C43.9 0 0 43.9 0 97.8s43.9 97.8 97.8 97.8c36.5 0 68.3-20.1 85.1-49.7a97.76 97.76 0 0 0 149.6 25.4l19.4 22.2h3v-87.8h-80l24.3 27.5zM97.8 145c-26 0-47.1-21.1-47.1-47.1s21.1-47.1 47.1-47.1 47.2 21 47.2 47S123.8 145 97.8 145" />
-            </svg>
-            <span class="govuk-footer__licence-description">
-              All content is available under the
-              <a class="govuk-footer__link" href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/" rel="license">Open Government Licence v3.0</a>, except where otherwise stated
-            </span>
-          </div>
-          <div class="govuk-footer__meta-item">
-            <a class="govuk-footer__link govuk-footer__copyright-logo" href="https://www.nationalarchives.gov.uk/information-management/re-using-public-sector-information/uk-government-licensing-framework/crown-copyright/">© Crown copyright</a>
-          </div>
-        </div>
-      </div>
-    </footer>
-
-    <script
-    src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-    integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E="
-    crossorigin="anonymous"></script>
-    <script src="{{ "js/govuk-frontend-4.1.0.min.js"|url }}"></script>
+    <script src="{{ "js/bundle.js"|url }}"></script>
 
     <!--
       extra_javascript contains paths to JavaScript files in the

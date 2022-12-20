@@ -1,0 +1,24 @@
+{# first level navigation only has collapsible sections in the tech docs template #}
+
+<li class="{% if nav_item.children %}collapsible{% endif %}">
+  {% if nav_item.children %}
+    {# sections do not have a URL, so steal the URL from the first child if there is one #}
+    <a href="{{ (nav_item.children|first).url|url }}" class="collapsible__heading">
+      {{ nav_item.title }}
+    </a>
+
+    <button class="collapsible__toggle" aria-expanded="true"><span class="collapsible__toggle-label">
+      Collapse
+    </span><span class="collapsible__toggle-icon" aria-hidden="true"></span></button>
+
+    <ul class="collapsible__body">
+      {% for nav_item in nav_item.children %}
+        {% include "nav.html" %}
+      {% endfor %}
+    </ul>
+  {% else %}
+    {{ nav_item.title }}
+  {% endif %}
+
+</li>
+

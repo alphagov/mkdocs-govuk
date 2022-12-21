@@ -1,17 +1,17 @@
-<!--
-
--->
-{% if not nav_item.children %}
-<li {% if nav_item.active %}class="active"{% endif %}>
-    <a href="{{ nav_item.url|url }}">{{ nav_item.title }}</a>
-</li>
-{% else %}
-  <li>
+<li class="{% if nav_item.children %}collapsible{% endif %}">
+  {% if nav_item.children %}
     {{ nav_item.title }}
-    <ul>
-        {% for nav_item in nav_item.children %}
-            {% include "nav.html" %}
-        {% endfor %}
+
+    <ul class="collapsible__body">
+      {% for nav_item in nav_item.children %}
+        {% include "nav.html" %}
+      {% endfor %}
     </ul>
-  </li>
-{% endif %}
+  {% else %}
+    <a href="{{ nav_item.url|url }}" class="{% if nav_item.active %}toc-link--in-view{% endif %}">
+      {{ nav_item.title }}
+    </a>
+  {% endif %}
+
+</li>
+
